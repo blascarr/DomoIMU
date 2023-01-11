@@ -59,19 +59,6 @@
 // after moving string constants to flash memory storage using the F()
 // compiler macro (Arduino IDE 1.0+ required).
 
-//#define DEBUG
-#ifdef DEBUG
-    #define DEBUG_PRINT(x) Serial.print(x)
-    #define DEBUG_PRINTF(x, y) Serial.print(x, y)
-    #define DEBUG_PRINTLN(x) Serial.println(x)
-    #define DEBUG_PRINTLNF(x, y) Serial.println(x, y)
-#else
-    #define DEBUG_PRINT(x)
-    #define DEBUG_PRINTF(x, y)
-    #define DEBUG_PRINTLN(x)
-    #define DEBUG_PRINTLNF(x, y)
-#endif
-
 #define MPU6050_DMP_CODE_SIZE       1929    // dmpMemory[]
 #define MPU6050_DMP_CONFIG_SIZE     192     // dmpConfig[]
 #define MPU6050_DMP_UPDATES_SIZE    47      // dmpUpdates[]

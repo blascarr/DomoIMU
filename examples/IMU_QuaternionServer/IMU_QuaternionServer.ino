@@ -36,8 +36,6 @@ AsyncEventSource events("/events");
 JSONVar readings;
 
 // Timer variables
-unsigned long timestamp = 0;
-unsigned long duration = 40;
 unsigned long IMU_time_interval = 40;
 #include "WiFi_Controller.h"
 
@@ -50,23 +48,15 @@ void mpusend(){
 }
 
 void setup() {
-      // join I2C bus (I2Cdev library doesn't do this automatically)
-    #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-        Wire.begin();
-        Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
-    #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
-        Fastwire::setup(400, true);
-    #endif
-
     Serial.begin(115200);
     while (!Serial); 
 
     initWiFi();
     initWebServer();
     mpu.setGyroOffsets( 220, 76, -85 );
+    mpu.setAccelOffsets(0,0, 1788); // 1688 factory default for my test chip
     mpu.calibrateAcc(6);
     mpu.calibrateGyro(6);
-    mpu.setAccelOffsets(0,0, 1788); // 1688 factory default for my test chip
     mpu.init();
     IMUTicker.attach_ms( IMU_time_interval, mpusend );
 }
